@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 map = mapboxMap;
                 mapView.setStreetMode();
                 List<LatLng> locationArray = new ArrayList<>();
-                locationArray.add(new LatLng(23.792380,90.418295));
+//                locationArray.add(new LatLng(23.792380,90.418295));
                 locationArray.add(new LatLng(23.792342,90.418125));
                 locationArray.add(new LatLng(23.792307,90.417769));
                 locationArray.add(new LatLng(23.792238,90.418295));
@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 // add the polyline to the map
                 map.addPolyline(polyline);
 
+                JSONObject distance = new JSONObject(json).getJSONObject("route");
+                double distanceValue = (double) distance.get("distance");
                 // get map bounds
                 JSONObject bounds = new JSONObject(json)
                         .getJSONObject("route")
@@ -162,11 +164,19 @@ public class MainActivity extends AppCompatActivity {
                         .build();
 
                 // animate to map bounds
+                addmarker(map,distanceValue);
                 map.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 50), 5000);
             } catch (Exception e) {
                 System.out.println("catch D: " + e.toString());
             }
         }
+    }
+    private void addmarker(MapboxMap map,double distance){
+        String distanceSnippet = Double.toString(distance);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(new LatLng(23.792380,90.418295));
+        markerOptions.snippet(distanceSnippet);
+        map.addMarker(markerOptions);
     }
 
     @Override
