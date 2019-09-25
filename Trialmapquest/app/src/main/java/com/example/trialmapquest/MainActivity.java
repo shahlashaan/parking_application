@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -36,15 +37,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapquestMapView);
         mapView.onCreate(savedInstanceState);
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
                 map = mapboxMap;
+                mapView.setStreetMode();
+                List<LatLng> locationArray = new ArrayList<>();
+                locationArray.add(new LatLng(23.792380,90.418295));
+                locationArray.add(new LatLng(23.792342,90.418125));
+                locationArray.add(new LatLng(23.792307,90.417769));
+                locationArray.add(new LatLng(23.792238,90.418295));
+                for(int i = 0;i < locationArray.size();i++) {
+
+                    map.addMarker(new MarkerOptions().position(locationArray.get(i)));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationArray.get(i),11));
+                }
                 Route route = new Route();
                 route.execute(
                         "23.741434,90.390782", // origin
                         "23.792380,90.418295", // destination
-                        "pedestrian" // type
+                        "Shortest" // type
+
                 );
             }
         });
@@ -53,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     private class Route extends AsyncTask <String, Void, String> {
         protected String doInBackground(String... args){
             JSONObject postData = new JSONObject();
+
+
             try {
                 // JSONArray of start and finish
                 JSONArray locations = new JSONArray();
@@ -65,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 options.put("routeType", args[2]);
                 options.put("generalize", "0");
                 postData.put("options", options);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
