@@ -1,9 +1,11 @@
 package com.example.trialmapquest;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
@@ -37,16 +39,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapquestMapView);
         mapView.onCreate(savedInstanceState);
+        DistanceCalculation distanceCalculation = new DistanceCalculation();
 
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
                 map = mapboxMap;
                 mapView.setStreetMode();
+                String targetLatLng=new String();
+                targetLatLng=distanceCalculation.getMinimumDistance();
                 List<LatLng> locationArray = new ArrayList<>();
 //                locationArray.add(new LatLng(23.792380,90.418295));
                 locationArray.add(new LatLng(23.792342,90.418125));
-                locationArray.add(new LatLng(23.792307,90.417769));
+//                locationArray.add(new LatLng(23.792307,90.417769));
                 locationArray.add(new LatLng(23.792238,90.418295));
                 for(int i = 0;i < locationArray.size();i++) {
 
@@ -56,14 +61,13 @@ public class MainActivity extends AppCompatActivity {
                 Route route = new Route();
                 route.execute(
                         "23.741434,90.390782", // origin
-                        "23.792380,90.418295", // destination
+                        targetLatLng, // destination
                         "Shortest" // type
 
                 );
             }
         });
     }
-
     private class Route extends AsyncTask <String, Void, String> {
         protected String doInBackground(String... args){
             JSONObject postData = new JSONObject();
@@ -174,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
     private void addmarker(MapboxMap map,double distance){
         String distanceSnippet = Double.toString(distance);
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(new LatLng(23.792380,90.418295));
+        markerOptions.position(new LatLng(23.792307,90.417769));
         markerOptions.snippet(distanceSnippet);
         map.addMarker(markerOptions);
     }
