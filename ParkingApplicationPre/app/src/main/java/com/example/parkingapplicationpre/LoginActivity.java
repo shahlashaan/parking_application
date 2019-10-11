@@ -1,12 +1,10 @@
 package com.example.parkingapplicationpre;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -77,10 +78,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
-                if(task.isSuccessful()){
+                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                if(!task.isSuccessful()){
                     //start the profile activity
-                    finish();
-                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                    Log.d("TAG","signInWithEmailed:failed"+task.getException());
+//                    finish();
+//                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                }
+                else {
+                    checkIfEmailVerified();
                 }
             }
         });
@@ -94,6 +100,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         if(view == textViewSignup){
             startActivity(new Intent(this,MainActivity.class));
+        }
+    }
+    private void checkIfEmailVerified(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user.isEmailVerified()){
+            finish();
+            Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_SHORT).show();
         }
     }
 }
