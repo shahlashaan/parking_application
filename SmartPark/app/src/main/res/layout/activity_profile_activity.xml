@@ -23,11 +23,22 @@
             android:text="TextView"
             android:textAlignment="center" />
 
+
+        <Button
+            android:id="@+id/buttonMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mapview" />
+
+
         <Button
             android:id="@+id/buttonLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout" />
+
+
+
 
     </LinearLayout>
 </RelativeLayout>

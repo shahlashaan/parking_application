@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -16,6 +18,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private TextView textViewUserEmail;
     private Button buttonLogout;
+    private Button buttonMapview;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +36,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonMapview = (Button) findViewById(R.id.buttonMap);
         textViewUserEmail.setText("Welcome "+user.getEmail()  );
         buttonLogout.setOnClickListener(this);
+        new FirebaseHelper().readSlots(new FirebaseHelper.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<ParkingSlot> parkingSlots, List<String> keys) {
+
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
+        if(view == buttonMapview){
+            startActivity(new Intent(this, DistanceCalculationActivity.class));
+
+        }
         if(view == buttonLogout){
             firebaseAuth.signOut();
             finish();
