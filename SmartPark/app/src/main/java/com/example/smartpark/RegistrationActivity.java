@@ -89,7 +89,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
 //                    sendEmailVerificationEmail();
                     firebaseUser = firebaseAuth.getInstance().getCurrentUser();
-                    AddUserInfor(email,firebaseUser.getUid());
+//                    AddUserInfor(email,firebaseUser.getUid());
 
                     firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
