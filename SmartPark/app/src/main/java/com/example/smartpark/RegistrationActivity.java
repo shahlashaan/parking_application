@@ -95,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-//                                reff.push().setValue(user);
+                                reff.push().setValue(user);
 
 
 

@@ -41,11 +41,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonMapview = (Button) findViewById(R.id.buttonMap);
+        buttonViewData = (Button) findViewById(R.id.buttonData);
 
         textViewUserEmail.setText("Welcome "+user.getEmail()  );
         buttonLogout.setOnClickListener(this);
         buttonMapview.setOnClickListener(this);
-//        buttonViewData.setOnClickListener(this);
+        buttonViewData.setOnClickListener(this);
 
 
     }
@@ -54,6 +55,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if(view == buttonMapview){
             startActivity(new Intent(this, DistanceCalculationActivity.class));
+
+        }
+        if(view == buttonViewData){
+            startActivity(new Intent(this, ViewDatabase.class));
 
         }
 
