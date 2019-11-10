@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, com.example.smartpark.LoginActivity.class));
         }
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        textViewData = (TextView) findViewById(R.id.textViewData);
+//        textViewData = (TextView) findViewById(R.id.textViewData);
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonMapview = (Button) findViewById(R.id.buttonMap);
