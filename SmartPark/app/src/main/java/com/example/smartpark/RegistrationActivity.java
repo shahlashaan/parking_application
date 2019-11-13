@@ -1,4 +1,4 @@
-package com.example.parkingapplicationpre;
+package com.example.smartpark;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,15 +16,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonRegister;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private EditText editName;
+    private EditText editMobileNumber;
     private TextView textViewSignin;
 
     private ProgressDialog progressDialog;
@@ -32,11 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth firebaseAuth;
 
     private FirebaseUser firebaseUser;
+    DatabaseReference reff = FirebaseDatabase.getInstance().getReference();
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registration);
 
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() !=null){
@@ -59,8 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void registerUser(){
+
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+
+
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
@@ -70,23 +80,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
             return;
         }
-
-//        progressDialog.setMessage("Registering User...");
-//        progressDialog.show();
-
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                   // Toast.makeText(MainActivity.this, "Registered Successfully",Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(MainActivity.this, "Registered Successfully",Toast.LENGTH_SHORT).show();
                     Log.d("TAG","User Created"+task.isSuccessful());
 
 //                    sendEmailVerificationEmail();
                     firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+//                    AddUserInfor(email,firebaseUser.getUid());
+
                     firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
+                                reff.push().setValue(user);
+
+
+
                                 FirebaseAuth.getInstance().signOut();
                                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
 //                                finish();
@@ -99,17 +111,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
                     });
+
+                    reff.child(firebaseUser.getUid()).setValue(user);
 //                    finish();
 //                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
 
                 }else{
-                    Toast.makeText(MainActivity.this, "Could not register. please try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Could not register. please try again",Toast.LENGTH_SHORT).show();
 
                 }
 //                progressDialog.dismiss();
             }
         });
 
+    }
+    private void AddUserInfor(String email,String id){
+        user = new User();
+        user.setId(id);
+        user.setEmail(email);
+
+        reff.child("users").child(id).setValue(user);
     }
 
 //    private void sendEmailVerificationEmail(){

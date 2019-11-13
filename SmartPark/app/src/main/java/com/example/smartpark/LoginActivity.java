@@ -1,4 +1,4 @@
-package com.example.parkingapplicationpre;
+package com.example.smartpark;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        progressDialog.setMessage("Registering User...");
+        progressDialog.setMessage("Logging in...");
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userLogin();
         }
         if(view == textViewSignup){
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this,RegistrationActivity.class));
         }
     }
     private void checkIfEmailVerified(){
