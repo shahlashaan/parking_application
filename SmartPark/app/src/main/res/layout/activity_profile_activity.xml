@@ -24,6 +24,11 @@
             android:textAlignment="center" />
 
 
+        <Button
+            android:id="@+id/checkData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check" />
 
         <Button
             android:id="@+id/buttonMap"

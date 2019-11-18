@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button buttonViewData;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mRef;
+    private Button buttonTemp;
 
     String valval = new String();
-    private List<ParkingSlot> parkingSlots = new ArrayList<>();
+//    private List<ParkingSlot> parkingSlots = new ArrayList<>();
+    ArrayList<ParkingSlot> array = new ArrayList<>();
+    ArrayList<LatLng> locationArray = new ArrayList<>();
+    ArrayList<String> stringLocationArray = new ArrayList<>();
 
 
 
@@ -55,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonMapview = (Button) findViewById(R.id.buttonMap);
         buttonViewData = (Button) findViewById(R.id.buttonData);
+        buttonTemp = (Button) findViewById(R.id.checkData);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mRef = mFirebaseDatabase.getReference("parkingSlots");
 
@@ -62,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonLogout.setOnClickListener(this);
         buttonMapview.setOnClickListener(this);
         buttonViewData.setOnClickListener(this);
+        buttonTemp.setOnClickListener(this);
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,7 +98,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void fetchData(DataSnapshot dataSnapshot) {
-        ArrayList<ParkingSlot> array = new ArrayList<>();
 
         for(DataSnapshot ds:dataSnapshot.getChildren()){
 //            User uInfo = new User();
@@ -106,6 +112,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             ParkingSlot parkingSlot = new ParkingSlot(Status,latitude,longitude,address,parking_area) ;
 
 
+            String locLatLng = new String();
+            locLatLng = latitude+","+longitude;
+            double DLAT = Double.parseDouble(latitude);
+            double DLNG = Double.parseDouble(longitude);
+
+
+
 
 //            parkingSlot.setStatus(ds.child("Status").getValue(ParkingSlot.class).getStatus());
 //            parkingSlot.setAddress(ds.child("address").getValue(ParkingSlot.class).getAddress());
@@ -113,8 +126,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //            parkingSlot.setLongitude(ds.child("longitude").getValue(ParkingSlot.class).getLongitude());
 //            parkingSlot.setParkingArea(ds.child("parking_area").getValue(ParkingSlot.class).getParkingArea());
 
-            array.add(parkingSlot);
-
+            if(Status.equals("0")) {
+                array.add(parkingSlot);
+                locationArray.add(new LatLng(DLAT,DLNG));
+                stringLocationArray.add(locLatLng);
+            }
 
 
 
@@ -147,7 +163,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if(view == buttonMapview){
-            startActivity(new Intent(this, DistanceCalculationActivity.class));
+            Intent intent = new Intent(ProfileActivity.this,DistanceCalculationActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putParcelableArrayList("Parking_slots",array);
+//            intent.putParcelableArrayListExtra("Parking_slots",array);
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("Parking_slots_latlng",locationArray);
+            bundle.putStringArrayList("Parking_slots_string",stringLocationArray);
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+//            startActivity(new Intent(this, DistanceCalculationActivity.class));
 
         }
         if(view == buttonViewData){
@@ -159,6 +186,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+
+        }
+        if(view == buttonTemp){
+            Intent intent = new Intent(ProfileActivity.this,TempActivity.class);
+            Bundle bundle = new Bundle();
+//            bundle.putParcelableArrayList("Parking_slots",array);
+
+            bundle.putParcelableArrayList("Parking_slots_latlng",locationArray);
+            bundle.putStringArrayList("Parking_slots_string",stringLocationArray);
+            intent.putExtras(bundle);
+            startActivity(intent);
+//            startActivity(new Intent(this, DistanceCalculationActivity.class));
 
         }
     }

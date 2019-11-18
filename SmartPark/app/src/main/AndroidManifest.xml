@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewDatabase"></activity>
+        <activity android:name=".TempActivity"></activity>
+        <activity android:name=".ViewDatabase" />
         <activity android:name=".SlotSelectionActivity" />
         <activity android:name=".DistanceCalculationActivity" />
         <activity android:name=".ProfileActivity" />

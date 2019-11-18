@@ -30,33 +30,68 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DistanceCalculationActivity extends AppCompatActivity {
     private MapView mapView;
     private MapboxMap map;
-    List<Marker> markerArray = new ArrayList<>();
-    List<LatLng> locationArray = new ArrayList<>();
-    List<MapPoints> locationsWithDistances = new ArrayList<>();
+    public Bundle bundle;
+
+
+    ArrayList<Marker> markerArray = new ArrayList<>();
+    ArrayList<LatLng> locationArray = new ArrayList<>();
+    ArrayList<String> stringLocations = new ArrayList<>();
+    ArrayList<MapPoints> locationsWithDistances = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MapQuest.start(getApplicationContext());
+
+
         setContentView(R.layout.activity_distance_calculation);
+        Intent intent = getIntent();
+        bundle = intent.getExtras();
+
+        MapQuest.start(getApplicationContext());
         mapView = (MapView) findViewById(R.id.mapquestMapView);
         mapView.onCreate(savedInstanceState);
+//        locationArray.add(new LatLng(23.7937704,90.4130481));
+//        locationArray.add(new LatLng(23.792342,90.418125));
+//        locationArray.add(new LatLng(23.792307,90.417769));
+//        locationArray.add(new LatLng(23.792238,90.418295));
 
+//        for(ParkingSlot Slot:array){
+//            String LNG = Slot.getLongitude();
+//            String LAT = Slot.getLatitude();
+//            String locLatLng = new String();
+//            locLatLng = LAT+","+LNG;
+//            double DLNG = Double.parseDouble(LNG);
+//            double DLAT = Double.parseDouble(LAT);
+//
+//            locationArray.add(new LatLng(DLAT,DLNG));
+//            stringLocations.add(locLatLng);
+//        }
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
                 map = mapboxMap;
                 mapView.setStreetMode();
+                locationArray = bundle.getParcelableArrayList("Parking_slots_latlng");
+                stringLocations = bundle.getStringArrayList("Parking_slots_string");
+//                Intent intent = getIntent();
+//                ArrayList<ParkingSlot> array = intent.getParcelableArrayListExtra("Parking_slots");
 
-
-                locationArray.add(new LatLng(23.7937704,90.4130481));
-                locationArray.add(new LatLng(23.792342,90.418125));
-                locationArray.add(new LatLng(23.792307,90.417769));
-                locationArray.add(new LatLng(23.792238,90.418295));
+//                for(ParkingSlot Slot:array){
+//                    String LNG = Slot.getLongitude();
+//                    String LAT = Slot.getLatitude();
+//                    String locLatLng = new String();
+//                    locLatLng = LAT+","+LNG;
+//                    double DLNG = Double.parseDouble(LNG);
+//                    double DLAT = Double.parseDouble(LAT);
+//
+//                    locationArray.add(new LatLng(DLAT,DLNG));
+//                    stringLocations.add(locLatLng);
+//                }
+//
 
                 RouteMatrix routeMatrix = new RouteMatrix();
                 routeMatrix.execute(
                         "23.792342,90.418125",
-                        "23.792307,90.417769",
+                        "23.800385,90.409126",
                         "23.792238,90.418295"
                 );
                 map.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
@@ -88,9 +123,14 @@ public class DistanceCalculationActivity extends AppCompatActivity {
                 // JSONArray of start and finish
                 JSONArray locations = new JSONArray();
                 locations.put(URLEncoder.encode("23.7937704,90.4130481", "UTF-8"));
-                locations.put(URLEncoder.encode(args[0], "UTF-8"));
-                locations.put(URLEncoder.encode(args[1], "UTF-8"));
-                locations.put(URLEncoder.encode(args[2], "UTF-8"));
+                for(String sLoc:stringLocations){
+                    locations.put(URLEncoder.encode(sLoc, "UTF-8"));
+
+                }
+
+//                locations.put(URLEncoder.encode(args[0], "UTF-8"));
+//                locations.put(URLEncoder.encode(args[1], "UTF-8"));
+//                locations.put(URLEncoder.encode(args[2], "UTF-8"));
                 postData.put("locations", locations); // put array inside main object
 
                 // JSONObject options
@@ -164,7 +204,7 @@ public class DistanceCalculationActivity extends AppCompatActivity {
                 SortDistances sort = new SortDistances();
                 ArrayList<String> sortedLocations = sort.sortLocations(locationsWithDistances);
 
-                for(int i = 1;i < sortedLocations.size();i++) {
+                for(int i = 1;i < 5;i++) {
 
 //                    map.addMarker(new MarkerOptions().position(locationArray.get(i)));
 //                    addmarker(map,distances.get(0),locationArray.get(0));
