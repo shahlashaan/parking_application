@@ -134,28 +134,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-//            String email = ds.child("Status").getValue(String.class);
-//            String ID = ds.child("address").getValue(String.class);
-//            array.add(ID);
-//            array.add(email);
-
-//            String email = ds.child("email").getValue(String.class);
-//            String ID = ds.child("id").getValue(String.class);
-
-//            uInfo.setEmail(ds.child("email").getValue(User.class).getEmail());
-//            uInfo.setId(ds.child("id").getValue(User.class).getId());
-//
-//            Log.d(TAG,"showdata:email:" + uInfo.getEmail());
-//            Log.d(TAG,"showdata:uid:" + uInfo.getId());
-
-
-//            Log.d(TAG,"showdata:email:" + email);
-//            Log.d(TAG,"showdata:uid:" + ID);
-//            ArrayList<String> array = new ArrayList<>();
-//            array.add(ID);
-//            array.add(email);
-//            array.add(key);
-
         }
 
     }

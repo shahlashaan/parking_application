@@ -5,15 +5,15 @@ import android.os.Parcelable;
 
 public class ParkingSlot implements Parcelable {
     private String status;
-    private String longitude;
     private String latitude;
+    private String longitude;
     private String address;
     private String parkingArea;
 
-    public ParkingSlot(String status, String longitude, String latitude, String address, String parkingArea) {
+    public ParkingSlot(String status, String latitude, String longitude, String address, String parkingArea) {
         this.status = status;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
         this.address = address;
         this.parkingArea = parkingArea;
     }
@@ -23,8 +23,8 @@ public class ParkingSlot implements Parcelable {
 
     protected ParkingSlot(Parcel in) {
         status = in.readString();
-        longitude = in.readString();
         latitude = in.readString();
+        longitude = in.readString();
         address = in.readString();
         parkingArea = in.readString();
     }
@@ -90,8 +90,8 @@ public class ParkingSlot implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(status);
-        dest.writeString(longitude);
         dest.writeString(latitude);
+        dest.writeString(longitude);
         dest.writeString(address);
         dest.writeString(parkingArea);
     }

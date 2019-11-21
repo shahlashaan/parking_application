@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -26,6 +27,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SlotSelectionActivity extends AppCompatActivity {
@@ -65,7 +67,7 @@ public class SlotSelectionActivity extends AppCompatActivity {
 //                    map.addMarker(new MarkerOptions().position(locationArray.get(i)));
 //
 //                }
-                map.addMarker(new MarkerOptions().position(location));
+                Marker slotPosition=map.addMarker(new MarkerOptions().position(location));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(location,11));
                 Route route = new Route();
                 route.execute(
@@ -74,6 +76,21 @@ public class SlotSelectionActivity extends AppCompatActivity {
                         "Shortest" // type
 
                 );
+                map.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker slotPosition) {
+
+
+                                Intent intent = new Intent(SlotSelectionActivity.this,PopUpActivity.class);
+                                LatLng selected = location;
+                                String lat = String.valueOf(selected.getLatitude());
+                                String lng = String.valueOf(selected.getLongitude());
+                                intent.putExtra("confirmSlot", lat+","+lng);
+                                startActivity(intent);
+
+                        return false;
+                    }
+                });
             }
         });
     }
