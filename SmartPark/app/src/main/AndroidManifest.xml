@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RemainingTimedata"></activity>
+        <activity android:name=".RemainingTimedata"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:launchMode="singleInstance"></activity>
         <activity android:name=".ParkingConformation" />
         <activity
             android:name=".PopUpActivity"

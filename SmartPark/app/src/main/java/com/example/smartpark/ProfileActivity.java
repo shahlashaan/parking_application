@@ -32,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button buttonLogout;
     private Button buttonMapview;
     private Button buttonViewData;
+    private Button buttonRemainingTime;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mRef;
     private Button buttonTemp;
@@ -61,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonMapview = (Button) findViewById(R.id.buttonMap);
         buttonViewData = (Button) findViewById(R.id.buttonData);
         buttonTemp = (Button) findViewById(R.id.checkData);
+        buttonRemainingTime = (Button) findViewById(R.id.buttonTime);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mRef = mFirebaseDatabase.getReference("parkingSlots");
 
@@ -69,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonMapview.setOnClickListener(this);
         buttonViewData.setOnClickListener(this);
         buttonTemp.setOnClickListener(this);
+        buttonRemainingTime.setOnClickListener(this);
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -176,6 +179,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             intent.putExtras(bundle);
             startActivity(intent);
 //            startActivity(new Intent(this, DistanceCalculationActivity.class));
+
+        }
+        if(view == buttonRemainingTime){
+            startActivity(new Intent(this, RemainingTimedata.class));
 
         }
     }
