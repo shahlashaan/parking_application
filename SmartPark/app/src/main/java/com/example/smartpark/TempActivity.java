@@ -119,12 +119,14 @@ public class TempActivity extends AppCompatActivity implements View.OnClickListe
             String latitude = ds.child("latitude").getValue(String.class);
             String longitude = ds.child("longitude").getValue(String.class);
             String parking_area = ds.child("parking_area").getValue(String.class);
+            String price = ds.child("Price").getValue(String.class);
+
             double DLAT = Double.parseDouble(latitude);
             double DLNG = Double.parseDouble(longitude);
 
             if(DLAT==dlat && DLNG==dlng){
                 key = ds.getKey();
-                parkingSlot = new ParkingSlot(Status, latitude, longitude, address, parking_area);
+                parkingSlot = new ParkingSlot(Status, latitude, longitude, address, parking_area,price);
                 parkingSlot.setStatus("1");
 
             }
@@ -160,9 +162,11 @@ public class TempActivity extends AppCompatActivity implements View.OnClickListe
             updatedValues.put(dbParkingSlotKey + "latitude", parkingSlot.getLatitude());
             updatedValues.put(dbParkingSlotKey + "longitude", parkingSlot.getLongitude());
             updatedValues.put(dbParkingSlotKey + "Status", parkingSlot.getStatus());
+            updatedValues.put(dbParkingSlotKey + "Price", parkingSlot.getPrice());
+
 
             mRef.updateChildren(updatedValues);
-            startActivity(new Intent(TempActivity.this,RemainingTimedata.class));
+            startActivity(new Intent(TempActivity.this,TimerActivity.class));
 //        textView4.setText(updatedValues.get(dbParkingSlotKey));
         }
     }

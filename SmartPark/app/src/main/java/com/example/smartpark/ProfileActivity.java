@@ -112,7 +112,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             String latitude = ds.child("latitude").getValue(String.class);
             String longitude = ds.child("longitude").getValue(String.class);
             String parking_area = ds.child("parking_area").getValue(String.class);
-            ParkingSlot parkingSlot = new ParkingSlot(Status,latitude,longitude,address,parking_area) ;
+            String price = ds.child("Price").getValue(String.class);
+
+            ParkingSlot parkingSlot = new ParkingSlot(Status,latitude,longitude,address,parking_area,price) ;
 
 
             String locLatLng = new String();
@@ -182,7 +184,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         }
         if(view == buttonRemainingTime){
-            startActivity(new Intent(this, RemainingTimedata.class));
+            startActivity(new Intent(this, TimerActivity.class));
 
         }
     }

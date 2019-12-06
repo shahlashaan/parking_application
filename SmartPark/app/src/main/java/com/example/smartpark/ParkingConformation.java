@@ -76,11 +76,12 @@ public class ParkingConformation extends AppCompatActivity {
             String latitude = ds.child("latitude").getValue(String.class);
             String longitude = ds.child("longitude").getValue(String.class);
             String parking_area = ds.child("parking_area").getValue(String.class);
+            String price = ds.child("Price").getValue(String.class);
 
 
             if(latitude.equals(positions[0]) && longitude.equals(positions[1])){
                 key = ds.getKey();
-                parkingSlot = new ParkingSlot(Status, latitude, longitude, address, parking_area);
+                parkingSlot = new ParkingSlot(Status, latitude, longitude, address, parking_area,price);
 
 
             }

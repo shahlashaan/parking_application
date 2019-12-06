@@ -10,12 +10,23 @@ public class ParkingSlot implements Parcelable {
     private String address;
     private String parkingArea;
 
-    public ParkingSlot(String status, String latitude, String longitude, String address, String parkingArea) {
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    private String price;
+
+    public ParkingSlot(String status, String latitude, String longitude, String address, String parkingArea,String price) {
         this.status = status;
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
         this.parkingArea = parkingArea;
+        this.price=price;
     }
 
     public ParkingSlot() {
@@ -27,6 +38,7 @@ public class ParkingSlot implements Parcelable {
         longitude = in.readString();
         address = in.readString();
         parkingArea = in.readString();
+        price = in.readString();
     }
 
     public static final Creator<ParkingSlot> CREATOR = new Creator<ParkingSlot>() {
@@ -94,5 +106,6 @@ public class ParkingSlot implements Parcelable {
         dest.writeString(longitude);
         dest.writeString(address);
         dest.writeString(parkingArea);
+        dest.writeString(price);
     }
 }

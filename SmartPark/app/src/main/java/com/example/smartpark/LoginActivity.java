@@ -26,6 +26,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignup;
+    private TextView textViewForgetPassword;
+
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
@@ -52,9 +54,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
         textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
+        textViewForgetPassword = (TextView) findViewById(R.id.textViewForgetPassword);
 
         buttonSignIn.setOnClickListener(this);
         textViewSignup.setOnClickListener(this);
+        textViewForgetPassword.setOnClickListener(this);
 
     }
 
@@ -77,16 +81,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                progressDialog.dismiss();
-                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+
+
                 if(!task.isSuccessful()){
+
                     //start the profile activity
                     Log.d("TAG","signInWithEmailed:failed"+task.getException());
 //                    finish();
 //                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                    progressDialog.dismiss();
+                    Toast.makeText(LoginActivity.this,"Authentication failed",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     checkIfEmailVerified();
+                    progressDialog.dismiss();
+                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+
+
                 }
             }
         });
@@ -100,6 +111,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         if(view == textViewSignup){
             startActivity(new Intent(this,RegistrationActivity.class));
+        }
+        if(view == textViewForgetPassword){
+            startActivity(new Intent(this,ForgetPassword.class));
         }
     }
     private void checkIfEmailVerified(){
