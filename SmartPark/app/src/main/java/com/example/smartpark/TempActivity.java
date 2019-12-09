@@ -43,6 +43,8 @@ public class TempActivity extends AppCompatActivity implements View.OnClickListe
     private ParkingSlot parkingSlot;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mRef;
+    private DatabaseReference mUserStatusRef;
+    private String UserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,7 @@ public class TempActivity extends AppCompatActivity implements View.OnClickListe
         lat=positions[0];
         lng=positions[1];
 
+        UserId = firebaseAuth.getCurrentUser().getUid();
         textView=(TextView) findViewById(R.id.textView2);
         textView2=(TextView) findViewById(R.id.textView3);
         textView4=(TextView) findViewById(R.id.textView4);
@@ -74,6 +77,7 @@ public class TempActivity extends AppCompatActivity implements View.OnClickListe
         textView2.setText(location);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mRef = mFirebaseDatabase.getReference("parkingSlots");
+        mUserStatusRef = mFirebaseDatabase.getReference("users");
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -156,7 +160,9 @@ public class TempActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(buttonCheckConfirm==v) {
             String dbParkingSlotKey = "/" + parkingID + "/";
+            String dbUserStatus ="/" + UserId +"/";
             Map<String, Object> updatedValues = new HashMap<>();
+            Map<String,Object> updateUser = new HashMap<>();
             updatedValues.put(dbParkingSlotKey + "parking_area", parkingSlot.getParkingArea());
             updatedValues.put(dbParkingSlotKey + "address", parkingSlot.getAddress());
             updatedValues.put(dbParkingSlotKey + "latitude", parkingSlot.getLatitude());
@@ -166,6 +172,9 @@ public class TempActivity extends AppCompatActivity implements View.OnClickListe
 
 
             mRef.updateChildren(updatedValues);
+
+            updateUser.put(dbUserStatus+"bookedStatus",parkingID);
+            mUserStatusRef.updateChildren(updateUser);
             startActivity(new Intent(TempActivity.this,TimerActivity.class));
 //        textView4.setText(updatedValues.get(dbParkingSlotKey));
         }

@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private static final String TAG = "ProfileActivity";
 
     private FirebaseAuth firebaseAuth;
-    private TextView textViewData;
+    private TextView textViewUserBookId;
     private TextView textViewUserEmail;
     private Button buttonLogout;
     private Button buttonMapview;
@@ -35,7 +35,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button buttonRemainingTime;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mRef;
+    private DatabaseReference mUserStatusRef;
     private Button buttonTemp;
+    private String userId;
+    private boolean alreadyParked;
 
     String valval = new String();
 //    private List<ParkingSlot> parkingSlots = new ArrayList<>();
@@ -51,27 +54,41 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_profile_activity);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
         if(firebaseAuth.getCurrentUser() == null){
             finish();
             startActivity(new Intent(this, com.example.smartpark.LoginActivity.class));
         }
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        userId = firebaseAuth.getCurrentUser().getUid();
 //        textViewData = (TextView) findViewById(R.id.textViewData);
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+        textViewUserBookId = (TextView) findViewById(R.id.textViewUserBookId);
+
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonMapview = (Button) findViewById(R.id.buttonMap);
         buttonViewData = (Button) findViewById(R.id.buttonData);
         buttonTemp = (Button) findViewById(R.id.checkData);
         buttonRemainingTime = (Button) findViewById(R.id.buttonTime);
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mRef = mFirebaseDatabase.getReference("parkingSlots");
+        mUserStatusRef = mFirebaseDatabase.getReference("users");
 
-        textViewUserEmail.setText("Welcome "+user.getEmail()  );
-        buttonLogout.setOnClickListener(this);
-        buttonMapview.setOnClickListener(this);
-        buttonViewData.setOnClickListener(this);
-        buttonTemp.setOnClickListener(this);
-        buttonRemainingTime.setOnClickListener(this);
+
+
+
+        mUserStatusRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                alreadyParked=userParkingStatus(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,6 +115,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+//        if(alreadyParked==true){
+//            buttonMapview.setEnabled(false);
+//            buttonTemp.setEnabled(false);
+//        }
+//        else if(alreadyParked==false){
+//            buttonRemainingTime.setEnabled(false);
+//
+//        }
+        textViewUserEmail.setText("Welcome "+user.getEmail()  );
+        buttonLogout.setOnClickListener(this);
+        buttonMapview.setOnClickListener(this);
+        buttonViewData.setOnClickListener(this);
+        buttonTemp.setOnClickListener(this);
+        buttonRemainingTime.setOnClickListener(this);
     }
 
     private void fetchData(DataSnapshot dataSnapshot) {
@@ -123,14 +154,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             double DLNG = Double.parseDouble(longitude);
 
 
-
-
-//            parkingSlot.setStatus(ds.child("Status").getValue(ParkingSlot.class).getStatus());
-//            parkingSlot.setAddress(ds.child("address").getValue(ParkingSlot.class).getAddress());
-//            parkingSlot.setLatitude(ds.child("latitude").getValue(ParkingSlot.class).getLatitude());
-//            parkingSlot.setLongitude(ds.child("longitude").getValue(ParkingSlot.class).getLongitude());
-//            parkingSlot.setParkingArea(ds.child("parking_area").getValue(ParkingSlot.class).getParkingArea());
-
             if(Status.equals("0")) {
                 array.add(parkingSlot);
                 locationArray.add(new LatLng(DLAT,DLNG));
@@ -141,6 +164,36 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         }
 
+    }
+
+    private boolean userParkingStatus(DataSnapshot dataSnapshot) {
+        boolean checkUserStatus=false;
+//        String bookedStatus;
+        for(DataSnapshot ds:dataSnapshot.getChildren()){
+//            User uInfo = new User();
+            String key = ds.getKey();
+            //            uInfo.setEmail(ds.child("email").getValue(User.class).getEmail());
+//            uInfo.setId(ds.child("id").getValue(User.class).getId());
+            if(key.equals(userId)) {
+                String bookedStatus = ds.child("bookedStatus").getValue(String.class);
+                if(!bookedStatus.equals("0")){
+                    checkUserStatus=true;
+                    buttonMapview.setEnabled(false);
+                    buttonTemp.setEnabled(false);
+
+                }
+                else if(bookedStatus.equals("0")) {
+                    buttonRemainingTime.setEnabled(false);
+
+                }
+                textViewUserBookId.setText(Boolean.toString(checkUserStatus));
+
+                return checkUserStatus;
+
+            }
+
+        }
+        return checkUserStatus;
     }
 
     @Override

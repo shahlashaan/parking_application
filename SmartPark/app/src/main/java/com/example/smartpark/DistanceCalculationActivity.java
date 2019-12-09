@@ -3,6 +3,13 @@ package com.example.smartpark;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -31,8 +38,9 @@ public class DistanceCalculationActivity extends AppCompatActivity {
     private MapView mapView;
     private MapboxMap map;
     public Bundle bundle;
-
-
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mRef;
+    ArrayList<SlotPositionPrice> positionPrices = new ArrayList<>();
     ArrayList<Marker> markerArray = new ArrayList<>();
     ArrayList<LatLng> locationArray = new ArrayList<>();
     ArrayList<String> stringLocations = new ArrayList<>();
@@ -45,10 +53,26 @@ public class DistanceCalculationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_distance_calculation);
         Intent intent = getIntent();
         bundle = intent.getExtras();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mRef = mFirebaseDatabase.getReference("parkingSlots");
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                getParkingPrice(dataSnapshot);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.w(TAG,"Listener was cancelled");
+//                toastMessage("Listener was cancelled");
+
+            }
+        });
         MapQuest.start(getApplicationContext());
         mapView = (MapView) findViewById(R.id.mapquestMapView);
         mapView.onCreate(savedInstanceState);
+
+
 //        locationArray.add(new LatLng(23.7937704,90.4130481));
 //        locationArray.add(new LatLng(23.792342,90.418125));
 //        locationArray.add(new LatLng(23.792307,90.417769));
@@ -240,15 +264,52 @@ public class DistanceCalculationActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
+    private void getParkingPrice(DataSnapshot dataSnapshot){
+
+        for(DataSnapshot ds:dataSnapshot.getChildren()) {
+
+            String latitude = ds.child("latitude").getValue(String.class);
+            String longitude = ds.child("longitude").getValue(String.class);
+            String price = ds.child("Price").getValue(String.class);
+            String Status = ds.child("Status").getValue(String.class);
+
+
+            SlotPositionPrice parkingSlotPrice = new SlotPositionPrice(latitude,longitude,price) ;
+
+
+
+
+            if(Status.equals("0")) {
+                positionPrices.add(parkingSlotPrice);
+
+            }
+        }
+
+    }
+
     private Marker addmarker(MapboxMap map,String distance,LatLng parkSlotGeoLoc){
 //        String distanceSnippet = Double.toString(distance);
         MarkerOptions markerOptions = new MarkerOptions();
 //        LatLng parkSlotGeoLoc = new LatLng();
 //        parkSlotGeoLoc = getParkingSlot();
-//        String val = new String();
-//        val = parkSlotGeoLoc.toString();
+        String parkingPrice = "0";
+        String lonLatPos = getStrLatLng(parkSlotGeoLoc);
+        String stLat = lonLatPos.split(",")[0];
+        String stLng = lonLatPos.split(",")[1];
+
+        for(SlotPositionPrice slotPrice:positionPrices){
+            if(stLat.equals(slotPrice.slotLatitude) && stLng.equals(slotPrice.slotLongitude)){
+                parkingPrice=slotPrice.slotPrice;
+            }
+        }
+
+
         markerOptions.position(parkSlotGeoLoc);
-        markerOptions.snippet(distance);
+        markerOptions.snippet(distance+",Tk "+parkingPrice);
         Marker mapPin = map.addMarker(markerOptions);
         return mapPin;
     }

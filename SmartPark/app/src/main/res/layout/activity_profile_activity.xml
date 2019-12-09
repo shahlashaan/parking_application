@@ -23,6 +23,13 @@
             android:text="TextView"
             android:textAlignment="center" />
 
+        <TextView
+            android:id="@+id/textViewUserBookId"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/checkData"
