@@ -153,7 +153,7 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
                 running=false;
                 isPaused=true;
                 double priceLotDouble = Double.parseDouble(priceSlot);
-                int value = (int) ((pauseOffset/(1000*60*60))*priceLotDouble);
+                int value = (int) ((pauseOffset/(1000*60*60)+1)*priceLotDouble);
                 String dbParkingSlotKey = "/" + parkingId + "/";
                 String dbUserStatus ="/" + UserId +"/";
                 Map<String, Object> updatedValues = new HashMap<>();
