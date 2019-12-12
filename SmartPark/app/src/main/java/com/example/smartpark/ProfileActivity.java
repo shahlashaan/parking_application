@@ -214,7 +214,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         }
         if(view == buttonViewData){
-            startActivity(new Intent(this, ViewDatabase.class));
+            startActivity(new Intent(this, ViewProfileActivity.class));
 
         }
 

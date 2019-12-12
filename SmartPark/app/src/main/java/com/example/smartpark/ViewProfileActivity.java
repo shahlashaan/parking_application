@@ -1,12 +1,10 @@
 package com.example.smartpark;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,9 +17,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewDatabase extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-    private static final String TAG = "ViewDatabase";
+public class ViewProfileActivity  extends AppCompatActivity {
+    private static final String TAG = "ViewProfileActivity";
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
@@ -30,20 +30,22 @@ public class ViewDatabase extends AppCompatActivity {
     private DatabaseReference microRef;
     private DatabaseReference connectedRef;
     private String userID;
+    private TextView textview_username,textView_mobileno,textView_emailID;
 
-    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_database);
+        setContentView(R.layout.activity_acc_profile);
 
-        mListView = (ListView) findViewById(R.id.listview);
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
 //        mRef = mFirebaseDatabase.getReference().child("users");
         mRef = mFirebaseDatabase.getReference("users");
+        textview_username = (TextView)findViewById(R.id.textview_username);
+        textView_mobileno = (TextView)findViewById(R.id.textView_mobileno);
+        textView_emailID = (TextView)findViewById(R.id.textView_emailID);
         FirebaseUser user = mAuth.getCurrentUser();
         userID=user.getUid();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -89,40 +91,26 @@ public class ViewDatabase extends AppCompatActivity {
 
     private void showData(DataSnapshot dataSnapshot,String userID) {
         ArrayList<String> array = new ArrayList<>();
-
+        String email="0";
+        String name="0";
+        String mobileNo="0";
         for(DataSnapshot ds:dataSnapshot.getChildren()){
             User uInfo = new User();
             String key = ds.getKey();
             if(key.equals(userID)){
-                String email = ds.child("email").getValue(String.class);
+                email = ds.child("email").getValue(String.class);
 //                String ID = ds.child("id").getValue(String.class);
-                String name = ds.child("Name").getValue(String.class);
-                String mobileNo = ds.child("Mobile").getValue(String.class);
+                name = ds.child("Name").getValue(String.class);
+                mobileNo = ds.child("Mobile").getValue(String.class);
 //                array.add(ID);
-                array.add(email);
-                array.add(name);
-                array.add(mobileNo);
+
             }
-//            String email = ds.child("email").getValue(String.class);
-//            String ID = ds.child("id").getValue(String.class);
-
-//            uInfo.setEmail(ds.child("email").getValue(User.class).getEmail());
-//            uInfo.setId(ds.child("id").getValue(User.class).getId());
 //
-//            Log.d(TAG,"showdata:email:" + uInfo.getEmail());
-//            Log.d(TAG,"showdata:uid:" + uInfo.getId());
-
-
-//            Log.d(TAG,"showdata:email:" + email);
-//            Log.d(TAG,"showdata:uid:" + ID);
-//            ArrayList<String> array = new ArrayList<>();
-//            array.add(ID);
-//            array.add(email);
-//            array.add(key);
-
+            textView_emailID.setText(email);
+            textView_mobileno.setText(mobileNo);
+            textview_username.setText(name);
         }
-        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,array);
-        mListView.setAdapter(adapter);
+
     }
 
     @Override

@@ -26,6 +26,7 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".TempActivity" />
         <activity android:name=".ViewDatabase" />
+        <activity android:name=".ViewProfileActivity" />
         <activity android:name=".SlotSelectionActivity" />
         <activity android:name=".DistanceCalculationActivity" />
         <activity android:name=".ProfileActivity" />

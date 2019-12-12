@@ -168,7 +168,7 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
                 updateUser.put(dbUserStatus+"bookedStatus","0");
                 mUserStatusRef.updateChildren(updateUser);
 
-                textView.setText(Integer.toString(value));
+                textView.setText("Tk"+Integer.toString(value));
 //                textView.setText(parkingId);
                 textView.setVisibility(View.VISIBLE);
             }
