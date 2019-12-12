@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewProfileActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="408dp"
+        android:layout_height="66dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="109dp"
+
+        android:src="@mipmap/prof" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <TableRow
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="212dp">
+
+        <TextView
+            android:id="@+id/textview_username"
+            android:layout_width="137dp"
+            android:layout_height="35dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edit"
+            android:onClick="buttonClickedEditName"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="281dp">
+
+        <TextView
+            android:id="@+id/textView_mobileno"
+            android:layout_width="137dp"
+            android:layout_height="35dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edit"
+            android:onClick="buttonClickedEditMobileno"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="356dp">
+
+        <TextView
+            android:id="@+id/textView_emailID"
+            android:layout_width="139dp"
+            android:layout_height="35dp"
+            android:text="TextView" />
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/textviewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:text="User Profile"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+</RelativeLayout>

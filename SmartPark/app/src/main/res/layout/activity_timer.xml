@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".TimerActivity">
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"/>
+
+    <Button
+        android:id="@+id/buttonFreeSlot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Free Slot" />
+
+    <Button
+        android:id="@+id/buttonGotoProf2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Profile" />
+
+    <TextView
+        android:id="@+id/TotalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "386207666907",
+    "firebase_url": "https://smartpark-22f5a.firebaseio.com",
+    "project_id": "smartpark-22f5a",
+    "storage_bucket": "smartpark-22f5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386207666907:android:4d637665cafae850b3f2fe",
+        "android_client_info": {
+          "package_name": "com.example.smartpark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386207666907-ocg9ps8ocnrbaf6rhcjg1nst0vitfip2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartpark",
+            "certificate_hash": "e955a4d0feab9ba760d90906c24eaaa422e1a8d4"
+          }
+        },
+        {
+          "client_id": "386207666907-6461noh7qb0j70pdl3r7idjhmjsuphft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB_RTSwLDL5aPOqmf9LYfl28ZiqH5SNu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386207666907-6461noh7qb0j70pdl3r7idjhmjsuphft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
