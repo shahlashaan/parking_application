@@ -199,18 +199,24 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if(view == buttonMapview){
-            Intent intent = new Intent(ProfileActivity.this,DistanceCalculationActivity.class);
+            if(locationArray.isEmpty() && stringLocationArray.isEmpty()){
+                Log.w(TAG,"No parking available");
+
+            }
+            else {
+                Intent intent = new Intent(ProfileActivity.this, DistanceCalculationActivity.class);
 //            Bundle bundle = new Bundle();
 //            bundle.putParcelableArrayList("Parking_slots",array);
 //            intent.putParcelableArrayListExtra("Parking_slots",array);
 
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("Parking_slots_latlng",locationArray);
-            bundle.putStringArrayList("Parking_slots_string",stringLocationArray);
-            intent.putExtras(bundle);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("Parking_slots_latlng", locationArray);
+                bundle.putStringArrayList("Parking_slots_string", stringLocationArray);
+                intent.putExtras(bundle);
 
-            startActivity(intent);
+                startActivity(intent);
 //            startActivity(new Intent(this, DistanceCalculationActivity.class));
+            }
 
         }
         if(view == buttonViewData){
