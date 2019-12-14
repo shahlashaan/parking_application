@@ -2,26 +2,36 @@ package com.example.smartpark;
 
 public class User {
 
-    //    private String name;
-//    private String mobileNo;
+    private String Name;
+    private String Mobile;
     private String id;
     private String email;
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getMobileNo() {
-//        return mobileNo;
-//    }
-//
-//    public void setMobileNo(String mobileNo) {
-//        this.mobileNo = mobileNo;
-//    }
+    public String getBoookedStatus() {
+        return boookedStatus;
+    }
+
+    public void setBoookedStatus(String boookedStatus) {
+        this.boookedStatus = boookedStatus;
+    }
+
+    private String boookedStatus;
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public String getMobileNo() {
+        return Mobile;
+    }
+
+    public void setMobileNo(String Mobile) {
+        this.Mobile = Mobile;
+    }
     public String getId() {
         return id;
     }

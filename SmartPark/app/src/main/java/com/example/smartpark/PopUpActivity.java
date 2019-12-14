@@ -95,7 +95,7 @@ public class PopUpActivity extends AppCompatActivity implements View.OnClickList
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.8),(int)(height*.6));
+        getWindow().setLayout((int)(width*.8),(int)(height*.4));
     }
 
     private String fetchData(DataSnapshot dataSnapshot) {

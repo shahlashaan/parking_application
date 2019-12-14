@@ -4,37 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/colorButterScotch"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".TimerActivity">
 
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"/>
+        android:layout_marginBottom="70dp"
+        android:text="Elapsed Time"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="36sp" />
+
+    <TableRow
+        android:layout_width="246dp"
+        android:layout_height="67dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:srcCompat="@mipmap/clclcl" />
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="207dp"
+            android:layout_height="69dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorButterScotch"
+            android:textAlignment="center"
+            android:textColor="@color/colorRose"
+            android:textSize="43sp" />
+    </TableRow>
+    <TextView
+        android:id="@+id/TotalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/buttonFreeSlot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Free Slot" />
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorMattGreen"
+        android:text="Free Slot"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
     <Button
         android:id="@+id/buttonGotoProf2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to Profile" />
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/colorMattGreen"
+        android:text="Go to Profile"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
-    <TextView
-        android:id="@+id/TotalPrice"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="102dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:visibility="invisible"
-        tools:visibility="visible"/>
-
+        android:layout_height="106dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="0dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
+        app:srcCompat="@mipmap/val2" />
 
 </LinearLayout>

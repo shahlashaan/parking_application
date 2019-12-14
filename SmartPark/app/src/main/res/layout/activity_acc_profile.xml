@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorButterScotch"
+    android:orientation="vertical"
     tools:context=".ViewProfileActivity">
 
     <ImageView
@@ -15,7 +17,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="109dp"
 
-        android:src="@mipmap/prof" />
+        android:src="@mipmap/icon" />
 
 
     <LinearLayout
@@ -33,20 +35,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="212dp">
 
         <TextView
             android:id="@+id/textview_username"
-            android:layout_width="137dp"
+            android:layout_width="260dp"
             android:layout_height="35dp"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/colorDarkBrown" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:background="@color/colorMattGreen"
+            android:onClick="buttonClickedEditName"
+            android:text="edit"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
     </TableRow>
 
     <TableRow
@@ -59,15 +65,19 @@
 
         <TextView
             android:id="@+id/textView_mobileno"
-            android:layout_width="137dp"
+            android:layout_width="258dp"
             android:layout_height="35dp"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:background="@color/colorMattGreen"
+            android:onClick="buttonClickedEditMobileno"
+            android:text="edit"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
     </TableRow>
 
     <TableRow
@@ -75,14 +85,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="356dp">
 
         <TextView
             android:id="@+id/textView_emailID"
-            android:layout_width="139dp"
+            android:layout_width="258dp"
             android:layout_height="35dp"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/colorPrimaryDark" />
 
     </TableRow>
 
@@ -94,7 +105,21 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:text="User Profile"
+        android:text="Profile"
         android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="24sp" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
+        app:srcCompat="@mipmap/val2" />
+
 </RelativeLayout>

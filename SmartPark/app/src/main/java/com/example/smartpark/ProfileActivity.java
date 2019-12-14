@@ -27,8 +27,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private static final String TAG = "ProfileActivity";
 
     private FirebaseAuth firebaseAuth;
-    private TextView textViewUserBookId;
-    private TextView textViewUserEmail;
+//    private TextView textViewUserBookId;
+//    private TextView textViewUserEmail;
     private Button buttonLogout;
     private Button buttonMapview;
     private Button buttonViewData;
@@ -36,7 +36,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mRef;
     private DatabaseReference mUserStatusRef;
-    private Button buttonTemp;
+//    private Button buttonTemp;
     private String userId;
     private boolean alreadyParked;
 
@@ -62,13 +62,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser user = firebaseAuth.getCurrentUser();
         userId = firebaseAuth.getCurrentUser().getUid();
 //        textViewData = (TextView) findViewById(R.id.textViewData);
-        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-        textViewUserBookId = (TextView) findViewById(R.id.textViewUserBookId);
+//        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+//        textViewUserBookId = (TextView) findViewById(R.id.textViewUserBookId);
 
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonMapview = (Button) findViewById(R.id.buttonMap);
         buttonViewData = (Button) findViewById(R.id.buttonData);
-        buttonTemp = (Button) findViewById(R.id.checkData);
+//        buttonTemp = (Button) findViewById(R.id.checkData);
         buttonRemainingTime = (Button) findViewById(R.id.buttonTime);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -123,11 +123,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //            buttonRemainingTime.setEnabled(false);
 //
 //        }
-        textViewUserEmail.setText("Welcome "+user.getEmail()  );
+//        textViewUserEmail.setText("Welcome "+user.getEmail()  );
         buttonLogout.setOnClickListener(this);
         buttonMapview.setOnClickListener(this);
         buttonViewData.setOnClickListener(this);
-        buttonTemp.setOnClickListener(this);
+//        buttonTemp.setOnClickListener(this);
         buttonRemainingTime.setOnClickListener(this);
     }
 
@@ -179,14 +179,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 if(!bookedStatus.equals("0")){
                     checkUserStatus=true;
                     buttonMapview.setEnabled(false);
-                    buttonTemp.setEnabled(false);
+//                    buttonTemp.setEnabled(false);
 
                 }
                 else if(bookedStatus.equals("0")) {
                     buttonRemainingTime.setEnabled(false);
 
                 }
-                textViewUserBookId.setText(Boolean.toString(checkUserStatus));
+//                textViewUserBookId.setText(Boolean.toString(checkUserStatus));
 
                 return checkUserStatus;
 
@@ -224,18 +224,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, LoginActivity.class));
 
         }
-        if(view == buttonTemp){
-            Intent intent = new Intent(ProfileActivity.this,TempActivity.class);
-            Bundle bundle = new Bundle();
-//            bundle.putParcelableArrayList("Parking_slots",array);
-
-            bundle.putParcelableArrayList("Parking_slots_latlng",locationArray);
-            bundle.putStringArrayList("Parking_slots_string",stringLocationArray);
-            intent.putExtras(bundle);
-            startActivity(intent);
-//            startActivity(new Intent(this, DistanceCalculationActivity.class));
-
-        }
+//        if(view == buttonTemp){
+//            Intent intent = new Intent(ProfileActivity.this,TempActivity.class);
+//            Bundle bundle = new Bundle();
+////            bundle.putParcelableArrayList("Parking_slots",array);
+//
+//            bundle.putParcelableArrayList("Parking_slots_latlng",locationArray);
+//            bundle.putStringArrayList("Parking_slots_string",stringLocationArray);
+//            intent.putExtras(bundle);
+//            startActivity(intent);
+////            startActivity(new Intent(this, DistanceCalculationActivity.class));
+//
+//        }
         if(view == buttonRemainingTime){
             startActivity(new Intent(this, TimerActivity.class));
 

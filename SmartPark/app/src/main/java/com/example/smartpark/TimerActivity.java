@@ -48,7 +48,7 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
         StopParkingHour = findViewById(R.id.buttonFreeSlot);
         GotTOProfile = findViewById(R.id.buttonGotoProf2);
         textView = findViewById(R.id.TotalPrice);
-        chronometer.setFormat("Time: %s");
+        chronometer.setFormat("%s");
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mRef = mFirebaseDatabase.getReference("parkingSlots");
@@ -142,7 +142,14 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this,ProfileActivity.class);
+        if(running==false && isPaused==true){
+            finish();
+        }
+        startActivity(intent);
+    }
 
     @Override
     public void onClick(View v) {
@@ -180,6 +187,9 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         if(v==GotTOProfile){
+            if(running==false && isPaused==true){
+                finish();
+            }
             startActivity(new Intent(this, ProfileActivity.class));
 
         }

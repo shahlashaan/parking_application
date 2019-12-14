@@ -1,8 +1,13 @@
 package com.example.smartpark;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ViewProfileActivity  extends AppCompatActivity {
@@ -129,5 +137,65 @@ public class ViewProfileActivity  extends AppCompatActivity {
 
     private void toastMessage(String message){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+    public void buttonClickedEditName(View view) {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.layout_custom_dialog_edit_name, null);
+        final EditText etUsername = alertLayout.findViewById(R.id.et_username);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Name Edit");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = etUsername.getText().toString();
+                String dbUserStatus ="/" + userID +"/";
+                Map<String,Object> updateUser = new HashMap<>();
+                updateUser.put(dbUserStatus+"Name",name);
+                mRef.updateChildren(updateUser);
+                etUsername.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    public void buttonClickedEditMobileno(View view) {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.layout_custom_dialog_editmobileno, null);
+        final EditText etMobileNo = alertLayout.findViewById(R.id.et_mobileNo);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("MobileNo Edit");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = etMobileNo.getText().toString();
+                String dbUserStatus ="/" + userID +"/";
+                Map<String,Object> updateUser = new HashMap<>();
+                updateUser.put(dbUserStatus+"Mobile",name);
+                mRef.updateChildren(updateUser);
+                etMobileNo.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 }

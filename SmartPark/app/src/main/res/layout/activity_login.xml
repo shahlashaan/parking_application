@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorButterScotch"
     tools:context=".LoginActivity">
 
     <LinearLayout
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <EditText
@@ -33,7 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text= "Log In" />
+            android:background="@color/colorPrimaryDark"
+            android:text="Log In"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed" />
 
         <TextView
             android:id="@+id/textViewSignUp"
@@ -42,6 +45,7 @@
             android:layout_margin="15dp"
             android:text="Not have an account?Signup here"
             android:textAlignment="center" />
+
         <TextView
             android:id="@+id/textViewForgetPassword"
             android:layout_width="match_parent"
@@ -59,10 +63,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="41dp"
         android:layout_marginEnd="0dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:text="User Login"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="24sp" />
 
 

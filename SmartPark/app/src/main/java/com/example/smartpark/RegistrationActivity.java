@@ -89,13 +89,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
 //                    sendEmailVerificationEmail();
                     firebaseUser = firebaseAuth.getInstance().getCurrentUser();
-//                    AddUserInfor(email,firebaseUser.getUid());
 
                     firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                reff.push().setValue(user);
+//                                reff.push().setValue(user);
+                                AddUserInfor(email,firebaseUser.getUid());
 
 
 
@@ -112,7 +112,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         }
                     });
 
-                    reff.child(firebaseUser.getUid()).setValue(user);
+//                    reff.child(firebaseUser.getUid()).setValue(user);
 //                    finish();
 //                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
 
@@ -129,7 +129,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         user = new User();
         user.setId(id);
         user.setEmail(email);
-
+        user.setMobileNo("0");
+        user.setName("0");
+        user.setBoookedStatus("0");
         reff.child("users").child(id).setValue(user);
     }
 

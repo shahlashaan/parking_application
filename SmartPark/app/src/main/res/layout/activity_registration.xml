@@ -5,13 +5,14 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorButterScotch"
     tools:context=".RegistrationActivity">
 
 
     <LinearLayout
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <EditText
@@ -35,7 +36,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Register User" />
+            android:background="@color/colorPrimaryDark"
+            android:text="Register User"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed" />
 
         <TextView
             android:id="@+id/textViewSignin"
@@ -54,10 +57,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="0dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:text="Registration"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp" />
 
 </RelativeLayout>
