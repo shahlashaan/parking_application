@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/textview_username"
-            android:layout_width="137dp"
+            android:layout_width="260dp"
             android:layout_height="35dp"
             android:text="TextView" />
 
@@ -46,8 +46,8 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="edit"
-            android:onClick="buttonClickedEditName"/>
+            android:onClick="buttonClickedEditName"
+            android:text="edit" />
     </TableRow>
 
     <TableRow
@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/textView_mobileno"
-            android:layout_width="137dp"
+            android:layout_width="258dp"
             android:layout_height="35dp"
             android:text="TextView" />
 
@@ -82,7 +82,7 @@
 
         <TextView
             android:id="@+id/textView_emailID"
-            android:layout_width="139dp"
+            android:layout_width="258dp"
             android:layout_height="35dp"
             android:text="TextView" />
 
