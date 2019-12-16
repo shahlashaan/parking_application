@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +41,7 @@ public class DistanceCalculationActivity extends AppCompatActivity {
     public Bundle bundle;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mRef;
+    private FirebaseAuth firebaseAuth;
     ArrayList<SlotPositionPrice> positionPrices = new ArrayList<>();
     ArrayList<Marker> markerArray = new ArrayList<>();
     ArrayList<LatLng> locationArray = new ArrayList<>();
@@ -48,7 +50,12 @@ public class DistanceCalculationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
 
+        if(firebaseAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, com.example.smartpark.LoginActivity.class));
+        }
 
         setContentView(R.layout.activity_distance_calculation);
         Intent intent = getIntent();
@@ -128,6 +135,7 @@ public class DistanceCalculationActivity extends AppCompatActivity {
                                 String lat = String.valueOf(selected.getLatitude());
                                 String lng = String.valueOf(selected.getLongitude());
                                 intent.putExtra("selectedSlot", lat+","+lng);
+//                                finish();
                                 startActivity(intent);
                             }
                         }

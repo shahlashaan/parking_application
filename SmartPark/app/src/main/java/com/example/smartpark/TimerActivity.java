@@ -43,6 +43,12 @@ public class TimerActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if(firebaseAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, com.example.smartpark.LoginActivity.class));
+        }
         UserId = firebaseAuth.getCurrentUser().getUid();
         chronometer = findViewById(R.id.chronometer);
         StopParkingHour = findViewById(R.id.buttonFreeSlot);

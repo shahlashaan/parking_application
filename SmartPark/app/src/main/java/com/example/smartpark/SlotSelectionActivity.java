@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
@@ -33,10 +34,18 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SlotSelectionActivity extends AppCompatActivity {
     private MapView mapView;
     private MapboxMap map;
+    private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if(firebaseAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, com.example.smartpark.LoginActivity.class));
+        }
         setContentView(R.layout.activity_slot_selection);
         Intent intent = getIntent();
         String message = intent.getStringExtra("selectedSlot");
@@ -73,7 +82,7 @@ public class SlotSelectionActivity extends AppCompatActivity {
                 route.execute(
                         "23.7937704,90.4130481", // origin
                         targetLatLng, // destination
-                        "Shortest" // type
+                        "Fastest" // type
 
                 );
                 map.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
@@ -86,7 +95,9 @@ public class SlotSelectionActivity extends AppCompatActivity {
                                 String lat = String.valueOf(selected.getLatitude());
                                 String lng = String.valueOf(selected.getLongitude());
                                 intent.putExtra("confirmSlot", lat+","+lng);
-                                startActivity(intent);
+//                                finish();
+
+                        startActivity(intent);
 
                         return false;
                     }

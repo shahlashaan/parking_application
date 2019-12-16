@@ -11,8 +11,9 @@
     <!-- added for MapQuest map - add YOUR Application Key here -->
     <com.mapquest.mapping.maps.MapView
         android:id="@+id/mapquestMapView"
-        app:mapquest_app_key="naGG6n1HL3R5UHDkRYIBipB3HV8R4cvv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:mapquest_app_key="naGG6n1HL3R5UHDkRYIBipB3HV8R4cvv"/>
 </RelativeLayout>

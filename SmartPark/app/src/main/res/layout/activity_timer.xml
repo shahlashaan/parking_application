@@ -76,7 +76,7 @@
         android:layout_marginEnd="122dp"
         android:layout_marginBottom="0dp"
         android:background="@color/colorMattGreen"
-        android:text="Go to Profile"
+        android:text="HOME"
         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
     <ImageView

@@ -213,13 +213,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 bundle.putParcelableArrayList("Parking_slots_latlng", locationArray);
                 bundle.putStringArrayList("Parking_slots_string", stringLocationArray);
                 intent.putExtras(bundle);
-
+//                finish();
                 startActivity(intent);
 //            startActivity(new Intent(this, DistanceCalculationActivity.class));
             }
 
         }
         if(view == buttonViewData){
+//            finish();
             startActivity(new Intent(this, ViewProfileActivity.class));
 
         }

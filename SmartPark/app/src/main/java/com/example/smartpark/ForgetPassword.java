@@ -35,6 +35,12 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         firebaseAuth = FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() !=null){
+            //profile activity here
+            finish();
+            startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+
+        }
 
         editTextEmail =  (EditText) findViewById(R.id.editTextEmail2);
 

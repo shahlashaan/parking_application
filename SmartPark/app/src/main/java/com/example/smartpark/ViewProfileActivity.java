@@ -1,6 +1,7 @@
 package com.example.smartpark;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +48,11 @@ public class ViewProfileActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_acc_profile);
 
         mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, com.example.smartpark.LoginActivity.class));
+        }
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
 //        mRef = mFirebaseDatabase.getReference().child("users");
@@ -114,9 +120,9 @@ public class ViewProfileActivity  extends AppCompatActivity {
 
             }
 //
-            textView_emailID.setText(email);
-            textView_mobileno.setText(mobileNo);
-            textview_username.setText(name);
+            textView_emailID.setText("Email: "+email);
+            textView_mobileno.setText("Mobile: "+mobileNo);
+            textview_username.setText("Name: "+name);
         }
 
     }
@@ -197,5 +203,11 @@ public class ViewProfileActivity  extends AppCompatActivity {
         });
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    public void buttonClickedHome(View view) {
+        finish();
+        startActivity(new Intent(this, ProfileActivity.class));
+
     }
 }

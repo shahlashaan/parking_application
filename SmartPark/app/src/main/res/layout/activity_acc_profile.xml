@@ -122,4 +122,16 @@
         android:scaleType="fitXY"
         app:srcCompat="@mipmap/val2" />
 
+    <Button
+        android:id="@+id/buttonHome"
+        android:layout_width="70dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="154dp"
+        android:layout_marginBottom="144dp"
+        android:background="@color/colorMattGreen"
+        android:onClick="buttonClickedHome"
+        android:text="Home" />
+
 </RelativeLayout>

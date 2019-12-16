@@ -155,6 +155,7 @@ public class PopUpActivity extends AppCompatActivity implements View.OnClickList
 
             updateUser.put(dbUserStatus+"bookedStatus",parkingID);
             mUserStatusRef.updateChildren(updateUser);
+            finish();
             startActivity(new Intent(PopUpActivity.this,TimerActivity.class));
 //            Intent intent =new Intent(PopUpActivity.this,ParkingConformation.class);
 //            intent.putExtra("selected_parking_slot",message);
