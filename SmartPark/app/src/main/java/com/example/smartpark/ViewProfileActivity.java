@@ -114,8 +114,8 @@ public class ViewProfileActivity  extends AppCompatActivity {
             if(key.equals(userID)){
                 email = ds.child("email").getValue(String.class);
 //                String ID = ds.child("id").getValue(String.class);
-                name = ds.child("Name").getValue(String.class);
-                mobileNo = ds.child("Mobile").getValue(String.class);
+                name = ds.child("name").getValue(String.class);
+                mobileNo = ds.child("mobile").getValue(String.class);
 //                array.add(ID);
 
             }
@@ -166,7 +166,7 @@ public class ViewProfileActivity  extends AppCompatActivity {
                 String name = etUsername.getText().toString();
                 String dbUserStatus ="/" + userID +"/";
                 Map<String,Object> updateUser = new HashMap<>();
-                updateUser.put(dbUserStatus+"Name",name);
+                updateUser.put(dbUserStatus+"name",name);
                 mRef.updateChildren(updateUser);
                 etUsername.onEditorAction(EditorInfo.IME_ACTION_DONE);
             }
@@ -196,7 +196,7 @@ public class ViewProfileActivity  extends AppCompatActivity {
                 String name = etMobileNo.getText().toString();
                 String dbUserStatus ="/" + userID +"/";
                 Map<String,Object> updateUser = new HashMap<>();
-                updateUser.put(dbUserStatus+"Mobile",name);
+                updateUser.put(dbUserStatus+"mobile",name);
                 mRef.updateChildren(updateUser);
                 etMobileNo.onEditorAction(EditorInfo.IME_ACTION_DONE);
             }

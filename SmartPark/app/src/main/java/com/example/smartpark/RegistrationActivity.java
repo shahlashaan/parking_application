@@ -129,9 +129,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         user = new User();
         user.setId(id);
         user.setEmail(email);
-        user.setMobileNo("0");
+        user.setMobile("0");
         user.setName("0");
-        user.setBoookedStatus("0");
+        user.setBookedStatus("0");
         reff.child("users").child(id).setValue(user);
     }
 

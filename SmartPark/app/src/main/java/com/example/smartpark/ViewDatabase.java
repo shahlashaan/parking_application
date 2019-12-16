@@ -96,8 +96,8 @@ public class ViewDatabase extends AppCompatActivity {
             if(key.equals(userID)){
                 String email = ds.child("email").getValue(String.class);
 //                String ID = ds.child("id").getValue(String.class);
-                String name = ds.child("Name").getValue(String.class);
-                String mobileNo = ds.child("Mobile").getValue(String.class);
+                String name = ds.child("name").getValue(String.class);
+                String mobileNo = ds.child("mobile").getValue(String.class);
 //                array.add(ID);
                 array.add(email);
                 array.add(name);

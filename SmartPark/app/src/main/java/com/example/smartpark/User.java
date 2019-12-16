@@ -6,16 +6,15 @@ public class User {
     private String Mobile;
     private String id;
     private String email;
+    private String bookedStatus;
 
-    public String getBoookedStatus() {
-        return boookedStatus;
+    public String getBookedStatus() {
+        return bookedStatus;
     }
 
-    public void setBoookedStatus(String boookedStatus) {
-        this.boookedStatus = boookedStatus;
+    public void setBookedStatus(String bookedStatus) {
+        this.bookedStatus = bookedStatus;
     }
-
-    private String boookedStatus;
 
     public String getName() {
         return Name;
@@ -25,11 +24,11 @@ public class User {
         this.Name = Name;
     }
 
-    public String getMobileNo() {
+    public String getMobile() {
         return Mobile;
     }
 
-    public void setMobileNo(String Mobile) {
+    public void setMobile(String Mobile) {
         this.Mobile = Mobile;
     }
     public String getId() {
